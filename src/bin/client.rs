@@ -1,5 +1,6 @@
 extern crate backupfs;
 extern crate clap;
+extern crate dirs;
 extern crate filedb;
 extern crate serde;
 extern crate serde_json;
@@ -49,7 +50,7 @@ impl Context {
         let path = if let Some(dest) = args.value_of("CONFIG_FILE") {
             PathBuf::from(dest)
         } else {
-            env::home_dir().unwrap_or_default().join(".backupfs")
+            dirs::home_dir().unwrap_or_default().join(".backupfs")
         };
         let db = FileDB::default();
         Self::new(args, path, db)
