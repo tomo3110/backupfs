@@ -1,0 +1,29 @@
+[package]
+name = "backupfs"
+version = "0.1.0"
+authors = ["s tomo <uotias64_mole@yahoo.co.jp>"]
+
+[[bin]]
+name = "backupfsd"
+path = "src/bin/deamon.rs"
+
+[[bin]]
+name = "backupfs-client"
+path = "src/bin/client.rs"
+
+[dependencies]
+clap = "2.32.0"
+chrono = "0.4.6"
+ctrlc = "3.1.1"
+env_logger = "0.5.12"
+filedb = { path = "../filedb" }
+log = "0.4.5"
+rust-crypto = "0.2"
+serde = "1.0.75"
+serde_derive = "1.0.75"
+serde_json = "1.0"
+time = "0.1"
+toml = "0.4"
+walkdir = "2.2"
+zip = "0.4"
+
