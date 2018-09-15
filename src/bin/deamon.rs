@@ -1,6 +1,7 @@
 extern crate backupfs;
 extern crate clap;
 extern crate ctrlc;
+extern crate dirs;
 extern crate env_logger;
 extern crate filedb;
 #[macro_use]
@@ -9,7 +10,6 @@ extern crate serde;
 extern crate serde_json;
 
 use std::collections::HashMap;
-use std::env;
 use std::path::PathBuf;
 use std::sync::mpsc;
 use std::thread;
@@ -63,7 +63,7 @@ impl Context {
         let path = if let Some(dest) = args.value_of("dest") {
             PathBuf::from(dest)
         } else {
-            env::home_dir().unwrap_or_default().join(".backupfs_archive")
+            dirs::home_dir().unwrap_or_default().join(".backupfs_archive")
         };
         debug!("destination_path: {:?}", path);
         let monitor = Monitor::new(ZIP, HashMap::new(), path);
