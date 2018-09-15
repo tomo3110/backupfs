@@ -1,0 +1,36 @@
+language: rust
+rust:
+  - stable
+  - beta
+  - nightly
+matrix:
+  allow_failures:
+    - rust: nightly
+  fast_finish: true
+  include:
+  - os: osx
+    rust: stable
+    env: TARGET=x86_64-apple-darwin
+  - os: linux
+    rust: stable
+    env: TARGET=x86_64-unknown-linux-gnu
+  - os: windows
+    rust: stable
+    env: TARGET=x86_64-pc-windows-msvc
+cache: cargo
+script:
+  - cargo package
+  - cargo test --verbose --all
+  - cargo doc --no-deps
+deploy:
+  provider: releases
+  api_key:
+    secure: XXXXX
+  file: backupfs-${TRAVIS_TAG}-${TARGET}.zip
+  skip_cleanup: false
+  on:
+    repo: tomo3110/backupfs
+    # On specific condition -> condition: $TRAVIS_RUST_VERSION = nightly
+    #
+    # Only deploy tagged commit
+    tags: true
